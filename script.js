@@ -3,6 +3,10 @@ const numberInput = document.getElementById("number-input");
 const convertBtn = document.getElementById("convert-btn");
 const result = document.getElementById("result");
 
+/* decimalToBinary function is complete.
+
+But there are some ways to improve it. For example, it's not necessary to keep track of the inputs and quotients. We can clean things up so the function is more efficient.
+
 // function to do the decimal to binary conversion.
 const decimalToBinary = (input) => {
   // it's time to finish building the function to do the conversion for you. You'll start off with a simpler solution first, then refactor that into a recursive solution.
@@ -13,7 +17,7 @@ const decimalToBinary = (input) => {
 
   // Your decimalToBinary function works well, but there is an issue – because of the condition in your while loop, it only works for numbers greater than 0. If you try to convert 0 to binary, nothing will get added to the page.
   if (input === 0) {
-    result.innerText = "0"; // // print the result on the screen
+    result.innerText = "0"; // // to display the result of the conversion on the screen
     return;
   }
 
@@ -47,10 +51,32 @@ const decimalToBinary = (input) => {
   Inputs:  [ 6, 3, 1 ]
   Quotients:  [ 3, 1, 0 ]
   Remainders:  [ 0, 1, 1 ]
-  Notice that the remainders array is the binary representation of the number 6, but in reverse order. */
+  Notice that the remainders array is the binary representation of the number 6, but in reverse order. */ /*
 
-  // print the result on the screen
+  // to display the result of the conversion on the screen
   result.innerText = remainders.reverse().join(""); // .reverse() method to reverse the order of the remainders array, and .join() with an empty string as a separator to join the elements into a binary number string
+}; */
+
+// improved function to do the decimal to binary conversion.
+// it's not necessary to keep track of the inputs and quotients. We can clean things up so the function is more efficient.
+const decimalToBinary = (input) => {
+  let binary = "";
+
+  // Finally, you need to handle cases where input is 0. Rather than update the DOM and return early like you did before, you can update the binary string and let the rest of the code in the function run.
+  if (input === 0) {
+    binary = "0";
+  }
+
+  while (input > 0) {
+    // In the previous version of this function, you pushed the remainder of input divided by 2 to binaryArray. Then later you reversed and joined the entries into a binary number string.
+    // But it would be easier to use string concatenation within the loop to build the binary string from right to left, so you won't need to reverse it later.
+    binary = (input % 2) + binary;
+
+    // // Recall that, each time the loop runs, input is the quotient of the previous value of input divided by 2, rounded down. Eventually, input is less than 1, and the loop stops running.
+    input = Math.floor(input / 2);
+  }
+
+  result.innerText = binary; // to display the result of the conversion
 };
 
 // function to check if the number input is empty, the value is not a number or the number is negative.
