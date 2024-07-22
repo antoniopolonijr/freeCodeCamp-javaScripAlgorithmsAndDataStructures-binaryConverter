@@ -2,6 +2,40 @@
 const numberInput = document.getElementById("number-input");
 const convertBtn = document.getElementById("convert-btn");
 const result = document.getElementById("result");
+const animationContainer = document.getElementById("animation-container");
+
+// array of objects to store data for each frame of the animation.
+const animationData = [
+  /*
+  Recall that the call stack is a LIFO (last in, first out) data structure. This means that, as functions are called, they are added to the top or end of the stack, and as functions return, they are removed from the top of the stack.
+  Treat your animationData array as a stack and add a new object to it. 
+  Now it's time to set up for the next phase of the animation where you'll update and remove the paragraphs you append to the DOM during the animation.  
+  */
+  {
+    inputVal: 5, // value of the input each time your recursive function runs
+    marginTop: 300, // top margin for DOM elements you'll add to the page
+    addElDelay: 1000, // delay between adding DOM elements to the page.
+    msg: `decimalToBinary(5) returns '10' + 1 (5 % 2). Then it pops off the stack.`,
+    showMsgDelay: 15000,
+    removeElDelay: 20000,
+  },
+  {
+    inputVal: 2,
+    marginTop: -200,
+    addElDelay: 1500,
+    msg: `decimalToBinary(2) returns '1' + 0 (2 % 2) and gives that value to the stack below. Then it pops off the stack.`,
+    showMsgDelay: 10000,
+    removeElDelay: 15000,
+  },
+  {
+    inputVal: 1,
+    marginTop: -200,
+    addElDelay: 2000,
+    msg: `decimalToBinary(1) returns "1" (base case) and gives that value to the stack below. Then it pops off the stack.`,
+    showMsgDelay: 5000,
+    removeElDelay: 10000,
+  },
+];
 
 /*
 This decimalToBinary function is complete. But there are some ways to improve it. For example, it's not necessary to keep track of the inputs and quotients. We can clean things up so the function is more efficient.
@@ -165,8 +199,72 @@ const decimalToBinary = (input) => {
   }
 };
 
+// If you're still confused about how it works under the hood, don't worry. Next, you'll create a simple animation to help you understand what's happening each step of the way.
+const showAnimation = () => {
+  // let's do some testing. // You should see that text in the console when you enter 5 into the number input and click the Convert button.
+  // The setTimeout function takes two arguments: a callback function and a number representing the time in milliseconds to wait before executing the callback function.
+  /*
+  If you test your code, you'll notice that your console logs are not in the expected order. Instead of logging "free", pausing for a second before logging "Code", and finally logging "Camp", you'll see this:
+  Example Code
+  free
+  Camp
+  Code
+  This is because the setTimeout() function is asynchronous, meaning that it doesn't stop the execution of the rest of your code. All the code in the showAnimation() function runs line by line, but because setTimeout() is asynchronous, free and Camp are logged to the console immediately, and then Code is logged to the console after a one second delay.
+  One way to fix this is to use multiple setTimeout() functions. Use setTimeout() to log free to the console after half a second, or 500 milliseconds.
+*/
+  /*
+While asynchronous, or async, code can be difficult to understand at first, it has many advantages. One of the most important is that it allows you to write non-blocking code.
+For example, imagine you're baking a cake, and you put the cake in the oven and set a timer. You don't have to sit in front of the oven waiting the entire time – you can wash dishes, read a book, or do anything else while you wait for the timer to go off.
+Async code works in a similar way. You can start an async operation and other parts of your code will still work while that operation is running.
+You'll learn more about async code in future projects, but the setTimeout() function is a good introduction.
+*/
+  /* removed
+  setTimeout(() => {
+    console.log("free");
+  }, 500);
+  setTimeout(() => {
+    console.log("Code");
+  }, 1000);
+  setTimeout(() => {
+    console.log("Camp");
+  }, 1500);
+*/
+
+  // start building the animation itself.
+  result.innerText = "Call Stack Animation"; // display
+  animationData.forEach((obj) => {
+    // Since you have the timing for each frame of animation stored in addElDelay, you can use that value with setTimeout() to set up the delay to add elements to the DOM.
+    setTimeout(() => {
+      animationContainer.innerHTML += `<p id="${obj.inputVal}" style="margin-top: ${obj.marginTop}px;" class="animation-frame">
+decimalToBinary(${obj.inputVal})
+        </p>`;
+    }, obj.addElDelay);
+    // For the next phase of the animation you'll update the paragraphs with the msg text. Since you have the delays for each step of the animation already, you can add your code to the same .forEach() loop.
+    setTimeout(() => {
+      // You have set the id attribute for your paragraph elements to the obj.inputVal property.
+      // Now that you've targeted the correct element, you can update its text after the delay you specified earlier
+      document.getElementById(obj.inputVal).textContent = obj.msg;
+    }, obj.showMsgDelay);
+    // Next, you'll remove the paragraph elements from the #show-animation element after the delays you specified earlier.
+    setTimeout(() => {
+      document.getElementById(obj.inputVal).remove(); // to remove it from the DOM after the delay.
+    }, obj.removeElDelay);
+    // Now your animation is complete. When you enter 5 in the number input and click the Convert button, the animation will add paragraphs to the DOM, update the text of each paragraph, and then remove the paragraphs from the DOM.
+    // The last thing you need to do is add the result of converting the number 5 into binary to the page once the animation is complete.
+    setTimeout(() => {
+      result.textContent = decimalToBinary(5); // Finally, set the textContent property of result equal to calling decimalToBinary() with 5 as an argument.
+      // After this, test out your code by entering the number 5 into the number input and clicking the Convert button.
+    }, 20000);
+  });
+};
+
 // function to check if the number input is empty, the value is not a number or the number is negative.
 const checkUserInput = () => {
+  // Now your showAnimation() function is set up. But if you look closely at your checkUserInput() function, you'll notice that it's not very DRY – you're calling parseInt() to convert numberInput.value into a number several times.
+  // A simple way to fix this is to create a new variable to store the converted number. Then you only have to convert the number once and can use it throughout the function.
+  const inputInt = parseInt(numberInput.value);
+  // Replace all instances of parseInt(numberInput.value) with inputInt.
+
   // It would be helpful to alert users if they don't enter a value into the number input, or the number they enter is invalid. While the input type="number" element makes validation easier by only allowing numbers and some special characters, remember that all values you get from HTML elements are actually strings. Also, if the number input is empty, the value property will be an empty string.
   /* (removed) if (numberInput.value === "") {
     // if users don't enter a value into the number input
@@ -181,8 +279,8 @@ const checkUserInput = () => {
   // if the user doesn't enter a number, or the number is invalid or the number is negative.
   if (
     !numberInput.value || // you can use the logical NOT operator (!) to check if the value itself is falsy.
-    isNaN(parseInt(numberInput.value)) || // remember that all values you get from HTML elements are actually strings // parseInt() function takes a string to be converted into an integer, and returns either an integer or NaN which stands for Not a Number // isNaN() to check if the value returned by the parseInt() function is a number or not.
-    parseInt(numberInput.value) < 0 // we are considering only positive numbers
+    isNaN(inputInt) || // remember that all values you get from HTML elements are actually strings // parseInt() function takes a string to be converted into an integer, and returns either an integer or NaN which stands for Not a Number // isNaN() to check if the value returned by the parseInt() function is a number or not.
+    inputInt < 0 // we are considering only positive numbers
   ) {
     window.alert("Please provide a decimal number greater than or equal to 0"); // alert the user
     return; // to break out of this function early. This will prevent future code in this function from running.
@@ -191,8 +289,15 @@ const checkUserInput = () => {
   // A good way to test that everything is working is to log the value attribute of numberInput to the console. As a reminder, you can access the value attribute of an element by using dot or bracket notation.
   // (removed) console.log(numberInput.value); // to log the value of numberInput to the console.
 
+  // You'll show the animation when users try to convert the decimal number 5 to binary, so you'll need to add a check for that within your checkUserInput() function.
+  // Use an if statement to check if the value attribute of numberInput is equal to the number 5. Remember to use the parseInt() function to convert the string into a number before comparing it to 5
+  if (inputInt === 5) {
+    showAnimation();
+    return;
+  }
+
   // set the textContent property of result equal to the string returned by your decimalToBinary() function.
-  result.textContent = decimalToBinary(parseInt(numberInput.value)); // call the function to do the decimal to binary conversion. // parseInt() function to convert the input into a number.
+  result.textContent = decimalToBinary(inputInt); // call the function to do the decimal to binary conversion. // parseInt() function to convert the input into a number.
 
   numberInput.value = ""; //clear the number input by setting its value to an empty string. Then later when you convert several numbers in a row, you won't have to delete the previous number before entering the next one.
 };
