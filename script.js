@@ -4,62 +4,7 @@ const convertBtn = document.getElementById("convert-btn");
 const result = document.getElementById("result");
 
 /*
-// learning a bit about the call stack and recursion
-
-/* In computer science, a stack is a data structure where items are stored in a LIFO (last-in-first-out) manner. If you imagine a stack of books, the last book you add to the stack is the first book you can take off the stack. Or an array where you can only .push() and .pop() elements.
-
-The call stack is a collection of function calls stored in a stack structure. When you call a function, it is added to the top of the stack, and when it returns, it is removed from the top / end of the stack.
-
-You'll see this in action by creating mock call stack. */ /*
-
-// While that's a simple example, it demonstrates how the call stack steps through your code and calls multiple functions.
-const callStack = [
-  `a(): returns 'freeCodeCamp ' + b()`, // When your code runs, the a() function is added to the call stack first.
-  `b(): returns 'is ' + c()`, // since a() calls b(), the function b() is added to the call stack.
-  `c(): returns 'awesome!'`, // since b() calls c(), the function c() is added to the call stack.
-  // Your call stack is complete. As you can see, a() is at the bottom or beginning of the stack, which calls b() in the middle, which calls c() at the top or end. Once they're all in place, they begin to execute from top to bottom.
-  // c() executes, returns the string "awesome!", and is popped off or removed from the top of the stack.
-  // Then the function b() executes and evaluates to "is " + "awesome!".
-  // Now that b() has executed, pop it off the call stack. Then, update your mock call to a() to the following: "a(): returns 'freeCodeCamp ' + 'is awesome!'".
-  // Finally, a() returns the concatenated string "freeCodeCamp is awesome!".
-];
-const a = () => {
-  return "freeCodeCamp" + b();
-};
-const b = () => {
-  return "is " + c();
-};
-const c = () => {
-  return "awesome!";
-};
-console.log(a());
-*/
-
-// function that will count down from a given number to zero using recursion.
-// To really see the call stack in action, you just need to modify the function slightly. rename the countdown() function to countDownAndUp(). Remember to update your function calls, too.
-const countDownAndUp = (number) => {
-  console.log(number); // log the current value of number to the console to act as the countdown
-
-  // A recursive function is a function that calls itself over and over. But you have to be careful because you can easily create an infinite loop. That's where the base case comes in. The base case is when the function stops calling itself, and it is a good idea to write it first.
-  // Since your countdown() function will count down from a given number to zero, the base case is when the number parameter is equal to 0. Then it should return to break out of its recursive loop.
-  if (number === 0) {
-    console.log("Reached base case");
-    return;
-  } else {
-    // Recursive functions also have a recursive case, which is where the function calls itself.
-    /* When writing the recursive case, you need to remember two things:
-    What is the base case?
-    What is the least amount of work you need to do to get closer to the base case?
-    Since the base case is when number is equal to 0, you need to call countdown() again while also lowering the value of number by 1.*/
-    countDownAndUp(number - 1);
-    console.log(number);
-  }
-};
-countDownAndUp(3); // to test your function. Call countdown() with an argument of 3 to see if it works
-
-// Now you should see a countdown from 3 to 0, followed by Reached base case, and a count from 1 to 3. This is because, after the recursive loop is finished, the function will continue to execute the code after the recursive call. This is why you see Reached base case before the count from 1 to 3.
-
-/* This decimalToBinary function is complete. But there are some ways to improve it. For example, it's not necessary to keep track of the inputs and quotients. We can clean things up so the function is more efficient.
+This decimalToBinary function is complete. But there are some ways to improve it. For example, it's not necessary to keep track of the inputs and quotients. We can clean things up so the function is more efficient.
 
 // function to do the decimal to binary conversion.
 const decimalToBinary = (input) => {
@@ -109,8 +54,10 @@ const decimalToBinary = (input) => {
 
   // to display the result of the conversion on the screen
   result.innerText = remainders.reverse().join(""); // .reverse() method to reverse the order of the remainders array, and .join() with an empty string as a separator to join the elements into a binary number string
-}; */
+};
+*/
 
+/*
 // improved function to do the decimal to binary conversion.
 // it's not necessary to keep track of the inputs and quotients. We can clean things up so the function is more efficient.
 const decimalToBinary = (input) => {
@@ -131,6 +78,91 @@ const decimalToBinary = (input) => {
   }
 
   result.innerText = binary; // to display the result of the conversion
+};
+*/
+
+/*
+// learning a bit about the call stack and recursion
+
+/* In computer science, a stack is a data structure where items are stored in a LIFO (last-in-first-out) manner. If you imagine a stack of books, the last book you add to the stack is the first book you can take off the stack. Or an array where you can only .push() and .pop() elements.
+
+The call stack is a collection of function calls stored in a stack structure. When you call a function, it is added to the top of the stack, and when it returns, it is removed from the top / end of the stack.
+
+You'll see this in action by creating mock call stack. */ /*
+
+// While that's a simple example, it demonstrates how the call stack steps through your code and calls multiple functions.
+const callStack = [
+  `a(): returns 'freeCodeCamp ' + b()`, // When your code runs, the a() function is added to the call stack first.
+  `b(): returns 'is ' + c()`, // since a() calls b(), the function b() is added to the call stack.
+  `c(): returns 'awesome!'`, // since b() calls c(), the function c() is added to the call stack.
+  // Your call stack is complete. As you can see, a() is at the bottom or beginning of the stack, which calls b() in the middle, which calls c() at the top or end. Once they're all in place, they begin to execute from top to bottom.
+  // c() executes, returns the string "awesome!", and is popped off or removed from the top of the stack.
+  // Then the function b() executes and evaluates to "is " + "awesome!".
+  // Now that b() has executed, pop it off the call stack. Then, update your mock call to a() to the following: "a(): returns 'freeCodeCamp ' + 'is awesome!'".
+  // Finally, a() returns the concatenated string "freeCodeCamp is awesome!".
+];
+const a = () => {
+  return "freeCodeCamp" + b();
+};
+const b = () => {
+  return "is " + c();
+};
+const c = () => {
+  return "awesome!";
+};
+console.log(a());
+*/
+
+/*
+// function that will count down from a given number to zero using recursion.
+// To really see the call stack in action, you just need to modify the function slightly. rename the countdown() function to countDownAndUp(). Remember to update your function calls, too.
+const countDownAndUp = (number) => {
+  console.log(number); // log the current value of number to the console to act as the countdown
+
+  // A recursive function is a function that calls itself over and over. But you have to be careful because you can easily create an infinite loop. That's where the base case comes in. The base case is when the function stops calling itself, and it is a good idea to write it first.
+  // Since your countdown() function will count down from a given number to zero, the base case is when the number parameter is equal to 0. Then it should return to break out of its recursive loop.
+  if (number === 0) {
+    console.log("Reached base case");
+    return;
+  } else {
+    // Recursive functions also have a recursive case, which is where the function calls itself.
+    /* When writing the recursive case, you need to remember two things:
+    What is the base case?
+    What is the least amount of work you need to do to get closer to the base case?
+    Since the base case is when number is equal to 0, you need to call countdown() again while also lowering the value of number by 1.*/ /*
+    countDownAndUp(number - 1);
+    console.log(number);
+  }
+};
+countDownAndUp(3); // to test your function. Call countdown() with an argument of 3 to see if it works
+
+// Now you should see a countdown from 3 to 0, followed by Reached base case, and a count from 1 to 3. This is because, after the recursive loop is finished, the function will continue to execute the code after the recursive call. This is why you see Reached base case before the count from 1 to 3.
+*/
+
+// Now that you have a better understanding of how the call stack and recursion work, you'll refactor the decimalToBinary() function to use recursion instead of a while loop.
+const decimalToBinary = (input) => {
+  // As a reminder, it's often best to start with the base case when writing a recursive function so you know what you're working towards, and to prevent an infinite loop.
+  // Similar to your last implementation, you'll divide input by 2 repeatedly until input is 0.
+  /*
+    if (input === 0) {
+    return "0";
+    // But if you test your converter with 0, you'll see that nothing happens. This is because you return an empty string in your base case when input is 0. We can fix this now.
+    // This mostly works – if you convert 0 into binary, 0 is displayed on the page. But now when you convert other numbers greater than 0, your binary number starts with a leading 0. For example, if you convert 1, the result is 01.
+    // But if you think about it, 0 and 1 in base-10 always convert to 0 and 1 in base-2, respectively. So you can add another base case to handle when input is 1.
+  } else if (input === 1) {
+    return "1";
+  } 
+  */
+  // Now everything should work as expected. And since you know that input will either be the numbers 0 or 1 at this point, you can combine your two base cases and just return input as a string.
+  // For a reliable way to convert a value into a string, even falsy values like null and undefined, you can use the String() function.
+  if (input === 0 || input === 1) {
+    return String(input);
+  } else {
+    // For the recursive case
+    return decimalToBinary(Math.floor(input / 2)) + (input % 2);
+    // This effectively lowers the input by roughly half each time the decimalToBinary() function is called.
+    // However, remember that the binary number string is built by calculating the remainder of input divided by 2 and concatenating that to the end.
+  }
 };
 
 // function to check if the number input is empty, the value is not a number or the number is negative.
@@ -159,7 +191,9 @@ const checkUserInput = () => {
   // A good way to test that everything is working is to log the value attribute of numberInput to the console. As a reminder, you can access the value attribute of an element by using dot or bracket notation.
   // (removed) console.log(numberInput.value); // to log the value of numberInput to the console.
 
-  decimalToBinary(parseInt(numberInput.value)); // call the function to do the decimal to binary conversion. // parseInt() function to convert the input into a number.
+  // set the textContent property of result equal to the string returned by your decimalToBinary() function.
+  result.textContent = decimalToBinary(parseInt(numberInput.value)); // call the function to do the decimal to binary conversion. // parseInt() function to convert the input into a number.
+
   numberInput.value = ""; //clear the number input by setting its value to an empty string. Then later when you convert several numbers in a row, you won't have to delete the previous number before entering the next one.
 };
 
